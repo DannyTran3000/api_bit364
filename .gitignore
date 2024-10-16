@@ -1,0 +1,39 @@
+# Compiled files
+*.class
+*.war
+*.ear
+*.jar
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Compiled output
+build/
+dist/
+out/
+target/
+
+# Environment variables
+.env
+*.properties
+
+# User-specific files
+*.pem
+*.key
+
+# macOS specific files
+.DS_Store
