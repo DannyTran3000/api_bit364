@@ -12,9 +12,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^9.0.3",
+    "api_bit364": "file:",
     "express": "^4.19.2",
+    "faker": "^5.5.3",
+    "nano": "^10.1.4",
     "nodemon": "^3.1.4",
-    "prettier": "^3.3.3",
-    "api_bit364": "file:"
+    "perf_hooks": "^0.0.1",
+    "prettier": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/faker": "^6.6.9"
   }
 }
