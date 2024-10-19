@@ -2,6 +2,7 @@ const { faker } = require('@faker-js/faker')
 
 const { DATABASE } = require('../database/_index')
 const USER_MODEL = require('../models/UserModel')
+const LOG_HELPER = require('../helpers/LogHelper')
 
 class UserController {
   async insert(req, res) {
@@ -9,12 +10,44 @@ class UserController {
 
     const collection = privateGenerateUserData(amount)
 
-    // const couchDBAnalyzeData = await privateInsert(DATABASE.couchDB, collection)
-    // const mongoDBAnalyzeData = await privateInsert(DATABASE.mongoDB, collection)
-    const orientDBAnalyzeData = await privateInsert(DATABASE.orientDB, collection)
-    // console.log('CouchDB Data:', couchDBAnalyzeData)
-    // console.log('MongoDB Data:', mongoDBAnalyzeData)
-    console.log('OrientDB Data:', orientDBAnalyzeData)
+    const couchDBAnalyzeData = await privateInsert(DATABASE.couchDB, collection)
+    const mongoDBAnalyzeData = await privateInsert(DATABASE.mongoDB, collection)
+    const orientDBAnalyzeData = await privateInsert(
+      DATABASE.orientDB,
+      collection
+    )
+    const ravenDBAnalyzeData = await privateInsert(DATABASE.ravenDB, collection)
+
+    const analyzeData = {
+      couchDB: couchDBAnalyzeData,
+      mongoDB: mongoDBAnalyzeData,
+      orientDB: orientDBAnalyzeData,
+      ravenDB: ravenDBAnalyzeData,
+    }
+
+    LOG_HELPER.consoleCPUDataFromInsert(analyzeData)
+
+    res.json({ status: 201, data: analyzeData })
+  }
+
+  async select(req, res) {
+    const amount = parseInt(req.query?.amount || 1)
+    const couchDBUsers = await USER_MODEL.readAll(DATABASE.couchDB, amount)
+    const mongoDBUsers = await USER_MODEL.readAll(DATABASE.mongoDB, amount)
+    const orientDBUsers = await USER_MODEL.readAll(DATABASE.orientDB, amount)
+    const ravenDBUsers = await USER_MODEL.readAll(DATABASE.ravenDB, amount)
+
+    const analyzeData = {
+      couchDB: couchDBUsers,
+      mongoDB: mongoDBUsers,
+      orientDB: orientDBUsers,
+      ravenDB: ravenDBUsers,
+    }
+
+    // console.log(analyzeData)
+    LOG_HELPER.consoleCPUDataFromInsert(analyzeData)
+
+    res.json({ status: 200, data: analyzeData })
   }
 }
 
@@ -41,9 +74,9 @@ const privateGenerateUserData = (loop) => {
 const privateInsert = async (type, input) => {
   const StartCpuUsage = process.cpuUsage()
   const initialMemoryUsage = process.memoryUsage()
-  let endCpuUsage = process.cpuUsage(StartCpuUsage)
-  let finalMemoryUsage = process.memoryUsage()
+  let endCpuUsage, finalMemoryUsage
   const processingTimeData = []
+  // if (type != DATABASE.ravenDB) {
   for (let i = 0; i < input.length; i++) {
     if (!input[i]) continue
 
@@ -59,6 +92,7 @@ const privateInsert = async (type, input) => {
     cpu: { StartCpuUsage, initialMemoryUsage, endCpuUsage, finalMemoryUsage },
     processingTime: processingTimeData,
   }
+  // }
 }
 
 const USER_CONTROLLER = new UserController()

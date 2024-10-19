@@ -10,7 +10,7 @@ const connectToOrientDB = async () => {
     const session = await client.session({
       name: 'bit364_orientdb',
       username: 'root',
-      password: 'root',
+      password: 'admin',
     })
 
     return session
