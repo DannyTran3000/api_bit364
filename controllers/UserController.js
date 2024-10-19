@@ -25,6 +25,9 @@ class UserController {
       ravenDB: ravenDBAnalyzeData,
     }
 
+    console.log('')
+    console.log(`${amount} records have been inserted into the databases`)
+    console.log('')
     LOG_HELPER.consoleCPUDataFromInsert(analyzeData)
 
     res.json({ status: 201, data: analyzeData })
@@ -44,7 +47,9 @@ class UserController {
       ravenDB: ravenDBUsers,
     }
 
-    // console.log(analyzeData)
+    console.log('')
+    console.log(`${amount} records have been found from each database`)
+    console.log('')
     LOG_HELPER.consoleCPUDataFromInsert(analyzeData)
 
     res.json({ status: 200, data: analyzeData })
@@ -96,5 +101,12 @@ const privateInsert = async (type, input) => {
 }
 
 const USER_CONTROLLER = new UserController()
+
+const arr = [
+  14, 8, 7, 6, 5, 6, 5, 6, 6, 6, 7, 5, 6, 6, 5, 5, 6, 6, 7, 5, 5, 6, 4, 4, 6, 6,
+  6, 5, 4, 5, 6, 4, 6, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 6, 8, 4, 6, 5, 5, 6, 4, 4,
+  5, 4, 4, 5, 6, 5, 5, 5, 5, 7, 6, 4, 6, 5, 5, 5, 4, 4, 5, 4, 5, 6, 5, 5, 6, 6,
+  5, 6, 5, 5, 6, 4, 4, 6, 4, 5, 6, 5, 4, 6, 4, 5, 6, 5, 5, 6, 4, 4,
+]
 
 module.exports = USER_CONTROLLER

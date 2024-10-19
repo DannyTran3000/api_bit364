@@ -34,23 +34,23 @@ class LogHelper {
         },
         {
           Metric: 'RSS Memory',
-          Start: value.cpu.initialMemoryUsage.rss + ' MB',
-          End: value.cpu.finalMemoryUsage.rss + ' MB',
+          Start: value.cpu.initialMemoryUsage.rss + ' bytes',
+          End: value.cpu.finalMemoryUsage.rss + ' bytes',
         },
         {
           Metric: 'Heap Total',
-          Start: value.cpu.initialMemoryUsage.heapTotal + ' MB',
-          End: value.cpu.finalMemoryUsage.heapTotal + ' MB',
+          Start: value.cpu.initialMemoryUsage.heapTotal + ' bytes',
+          End: value.cpu.finalMemoryUsage.heapTotal + ' bytes',
         },
         {
           Metric: 'Heap Used',
-          Start: value.cpu.initialMemoryUsage.external + ' MB',
-          End: value.cpu.finalMemoryUsage.external + ' MB',
+          Start: value.cpu.initialMemoryUsage.external + ' bytes',
+          End: value.cpu.finalMemoryUsage.external + ' bytes',
         },
         {
           Metric: 'Heap Used',
-          Start: value.cpu.initialMemoryUsage.external + ' MB',
-          End: value.cpu.finalMemoryUsage.external + ' MB',
+          Start: value.cpu.initialMemoryUsage.external + ' bytes',
+          End: value.cpu.finalMemoryUsage.external + ' bytes',
         },
       ]
 
@@ -58,7 +58,6 @@ class LogHelper {
     })
     console.log('Processing Time:')
     console.table(processingTimes)
-    // console.log(processingTimes)
   }
 }
 

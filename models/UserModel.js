@@ -32,17 +32,25 @@ class UserModel {
           newUser = await OrientDB.command(`INSERT INTO users SET ${fields}`, {
             params: data,
           }).one()
+
+          await OrientDB.close()
           break
 
         case DATABASE.ravenDB:
           const session = store.openSession()
-
-          newUser = {
-            ...data,
-            '@metadata': { '@collection': 'users' },
+          try {
+            newUser = {
+              ...data,
+              '@metadata': { '@collection': 'users' },
+            }
+            await session.store(newUser)
+            await session.saveChanges()
+          } catch(e) {
+            console.error(e)
+          } finally {
+            await session.dispose()
           }
-          await session.store(newUser)
-          await session.saveChanges()
+
           break
 
         default:
