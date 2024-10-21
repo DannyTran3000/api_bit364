@@ -58,7 +58,7 @@ class UserModel {
       }
 
       const end = process.hrtime(start)
-      const totalMilliseconds = Math.floor(end[1] / 1e6)
+      const totalMilliseconds = end[1] / 1e6
 
       if (!newUser) return { id: null, processingTime: 0 }
 
@@ -133,7 +133,7 @@ class UserModel {
       }
 
       const end = process.hrtime(start)
-      const totalMilliseconds = Math.floor(end[1] / 1e6)
+      const totalMilliseconds = end[1] / 1e6
       endCpuUsage = process.cpuUsage(StartCpuUsage)
       finalMemoryUsage = process.memoryUsage()
 

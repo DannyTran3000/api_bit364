@@ -2,7 +2,7 @@ const { faker } = require('@faker-js/faker')
 
 const { DATABASE } = require('../database/_index')
 const USER_MODEL = require('../models/UserModel')
-const LOG_HELPER = require('../helpers/LogHelper')
+const {LOG_HELPER, consoleBreakLine} = require('../helpers/LogHelper')
 
 class UserController {
   async insert(req, res) {
@@ -47,9 +47,9 @@ class UserController {
       ravenDB: ravenDBUsers,
     }
 
-    console.log('')
+
+    consoleBreakLine(3)
     console.log(`${amount} records have been found from each database`)
-    console.log('')
     LOG_HELPER.consoleCPUDataFromInsert(analyzeData)
 
     res.json({ status: 200, data: analyzeData })
@@ -101,12 +101,5 @@ const privateInsert = async (type, input) => {
 }
 
 const USER_CONTROLLER = new UserController()
-
-const arr = [
-  14, 8, 7, 6, 5, 6, 5, 6, 6, 6, 7, 5, 6, 6, 5, 5, 6, 6, 7, 5, 5, 6, 4, 4, 6, 6,
-  6, 5, 4, 5, 6, 4, 6, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 6, 8, 4, 6, 5, 5, 6, 4, 4,
-  5, 4, 4, 5, 6, 5, 5, 5, 5, 7, 6, 4, 6, 5, 5, 5, 4, 4, 5, 4, 5, 6, 5, 5, 6, 6,
-  5, 6, 5, 5, 6, 4, 4, 6, 4, 5, 6, 5, 4, 6, 4, 5, 6, 5, 5, 6, 4, 4,
-]
 
 module.exports = USER_CONTROLLER

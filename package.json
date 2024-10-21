@@ -14,10 +14,12 @@
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
     "api_bit364": "file:",
+    "crypto": "^1.0.1",
     "express": "^4.19.2",
     "faker": "^5.5.3",
     "lodash": "^4.17.21",
     "mongodb": "^6.9.0",
+    "mysql2": "^3.11.3",
     "nano": "^10.1.4",
     "nodemon": "^3.1.4",
     "orientjs": "^3.2.0",

@@ -4,14 +4,20 @@ class LogHelper {
   consoleCPUDataFromInsert(data) {
     let processingTimes = []
     Object.entries(data).forEach(([key, value]) => {
-      const totalTime = isArray(value.processingTime)
+      const isMultipleProcessingTimes = isArray(value.processingTime)
+
+      const totalTime = isMultipleProcessingTimes
         ? value.processingTime
             .map((item) => item.processingTime)
             .reduce((p, n) => p + n, 0)
         : value.processingTime
       processingTimes.push({ Database: key, 'Time (ms)': totalTime })
 
+      consoleBreakLine(3)
       console.log('Database: ', key)
+
+      if (isMultipleProcessingTimes) console.table(value.processingTime)
+
       const consoleData = [
         {
           Metric: 'User CPU Time',
@@ -55,12 +61,24 @@ class LogHelper {
       ]
 
       console.table(consoleData)
+      consoleDivider()
     })
+    consoleBreakLine(3)
     console.log('Processing Time:')
     console.table(processingTimes)
+
+    consoleBreakLine(10)
   }
+}
+
+const consoleBreakLine = (n = 1) => {
+  for (let i = 0; i < n; i++) console.log('')
+}
+
+const consoleDivider = () => {
+  console.log('---------------------------------------------------------------')
 }
 
 const LOG_HELPER = new LogHelper()
 
-module.exports = LOG_HELPER
+module.exports = { LOG_HELPER, consoleBreakLine, consoleDivider }
